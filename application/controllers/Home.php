@@ -15,7 +15,8 @@ class Home extends CI_Controller
     // dapat memasukan kode barang kemudian ditambahkan ke dalam list tabel
     // dapat melakukan transaksi pembayaran, yang nantinya akan masuk ke dalam rekap transaksi
     $data['total_harga'] = "Fitur belum bisa digunakan";
-
+    // echo (time()) . " day";
+    // die;
     $this->load->view('templates/header');
     $this->load->view('templates/topbar');
     $this->load->view('templates/sidebar');
@@ -82,10 +83,52 @@ class Home extends CI_Controller
     }
   }
 
-  public function edit_barang()
+  public function edit_barang($kode)
   {
     // dapat melakukan perubahan data barang atau penambahan stok
-    $this->load->view('home/barang/edit');
+
+    $this->form_validation->set_rules('nama', 'Nama', 'required', [
+      'required' => 'Nama barang harus diisi'
+    ]);
+
+    $this->form_validation->set_rules('satuan', 'Satuan', 'required', [
+      'required' => 'Satuan barang harus dipilih'
+    ]);
+
+    $this->form_validation->set_rules('harga', 'Harga', 'required|numeric', [
+      'required' => 'Harga barang harus ditentukan',
+      'numeric' => 'Harga hanya boleh angka.'
+    ]);
+
+    $this->form_validation->set_rules('stok', 'Stok', 'numeric', [
+      'numeric' => 'Stok hanya boleh dimasukan angka.'
+    ]);
+
+    if ($this->form_validation->run() == FALSE) {
+      $data['barang'] = $this->Barang_Model->tampilkanSatuBarang($kode);
+
+      $this->load->view('templates/header');
+      $this->load->view('templates/topbar');
+      $this->load->view('templates/sidebar');
+      $this->load->view('home/barang/ubah', $data);
+      $this->load->view('templates/footer');
+    } else {
+      $item = [
+        'kode_barang' => $this->input->post('kode'),
+        'nama_barang' => htmlspecialchars($this->input->post('nama', 1)),
+        'satuan' => htmlspecialchars($this->input->post('satuan', 1)),
+        'harga' => htmlspecialchars($this->input->post('harga', 1)),
+        'stok' => htmlspecialchars($this->input->post('stok', 1)),
+      ];
+
+      if ($this->Barang_Model->ubahDataBarang($item) > 0) {
+        $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">Data barang berhasil diubah.</div>');
+      } else {
+        $this->session->set_flashdata('pesan', '<div class="alert alert-danger" role="alert">Data barang gagal diubah.</div>');
+      }
+
+      redirect('home/edit_barang/' . $kode);
+    }
   }
 
   public function hapus_barang($kode)

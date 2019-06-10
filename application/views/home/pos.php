@@ -105,7 +105,7 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td></td>
+                    <td><input type="number" style="width: 50px" min="1"></td>
                     <td></td>
                     <td></td>
                   </tr>
