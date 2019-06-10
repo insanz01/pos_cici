@@ -16,17 +16,17 @@
     <!-- sidebar menu: : style can be found in sidebar.less -->
     <ul class="sidebar-menu" data-widget="tree">
       <li class="header">APLIKASI UTAMA</li>
-      <li class="active">
+      <li>
         <a href="<?= base_url('home'); ?>">
           <i class="fa fa-dashboard"></i> <span>Dashboard</span>
         </a>
       </li>
-      <li class="active">
+      <li>
         <a href="<?= base_url('home/log_transaksi'); ?>">
           <i class="fa fa-calendar"></i> <span>Log Transaksi</span>
         </a>
       </li>
-      <li class="active">
+      <li>
         <a href="<?= base_url('home/lihat_barang') ?>">
           <i class="fa fa-table"></i> <span>Persediaan Barang</span>
         </a>

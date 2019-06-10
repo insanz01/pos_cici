@@ -15,8 +15,7 @@ class Home extends CI_Controller
     // dapat memasukan kode barang kemudian ditambahkan ke dalam list tabel
     // dapat melakukan transaksi pembayaran, yang nantinya akan masuk ke dalam rekap transaksi
     $data['total_harga'] = "Fitur belum bisa digunakan";
-    // echo (time()) . " day";
-    // die;
+
     $this->load->view('templates/header');
     $this->load->view('templates/topbar');
     $this->load->view('templates/sidebar');
@@ -146,5 +145,20 @@ class Home extends CI_Controller
   {
     // menyimpan setiap log transaksi yang terjadi pada hari tertentu
     $this->load->view('home/rekap/log_transaksi');
+  }
+
+  public function stok_habis()
+  {
+    // dapat melihat semua stok yang habis
+  }
+
+  public function stok_hampir_habis()
+  {
+    // melihat semua limit stok paling tidak kurang atau sama dengan 20 unit barang
+  }
+
+  public function best_seller()
+  {
+    // melihat barang yang paling laku (5 barang paling laris)
   }
 }

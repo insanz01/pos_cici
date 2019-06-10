@@ -24,8 +24,6 @@ class Barang_Model extends CI_Model
 
   public function ubahDataBarang($item)
   {
-    // var_dump($item);
-    // die;
     $this->db->set('nama_barang', $item['nama_barang']);
     $this->db->set('satuan', $item['satuan']);
     $this->db->set('harga', $item['harga']);

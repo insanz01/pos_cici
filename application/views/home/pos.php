@@ -13,69 +13,12 @@
     <!-- Main content -->
     <section class="content">
       <!-- Small boxes (Stat box) -->
-      <!-- <div class="row">
-        <div class="col-lg-11 mx-auto">
-          <div class="box">
-            <div class="box-header">
-              <h3 class="box-title" style="padding: 1em 0"><strong>Today</strong> : <?= date('D, d M Y', time()); ?></h3>
-              <form action="<?= base_url('home/index') ?>" method="post">
-                <input type="text" name="kode" id="kode" placeholder="kode barang" oninput="true">
-              </form>
-            </div>
-            <div class="box-body">
-              <table id="pos" class="table table-bordered table-striped">
-                <thead>
-                  <tr>
-                    <th>Kode Barang</th>
-                    <th>Nama Barang</th>
-                    <th>Satuan</th>
-                    <th>Qty</th>
-                    <th>Harga</th>
-                    <th>Sub Total</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>11110001111</td>
-                    <td>Nano Nano
-                    </td>
-                    <td>Saset</td>
-                    <td> 4</td>
-                    <td>5000</td>
-                    <td>20000</td>
-                  </tr>
-                </tbody>
-                <tfoot>
-                  <tr>
-                    <th>Kode Barang</th>
-                    <th>Nama Barang</th>
-                    <th>Satuan</th>
-                    <th>Qty</th>
-                    <th>Harga</th>
-                    <th>Sub Total</th>
-                  </tr>
-                </tfoot>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div> -->
       <!-- /.row -->
       <div class="row">
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
               <h3 class="box-title" style="padding: 1em 0"><strong>Today</strong> : <?= date('D, d M Y', time()); ?></h3>
-
-              <!-- <div class="box-tools">
-                <div class="input-group input-group-sm" style="width: 150px;">
-                  <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
-
-                  <div class="input-group-btn">
-                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-                  </div>
-                </div>
-              </div> -->
             </div>
             <div class="row">
               <div class="col-lg-6">
