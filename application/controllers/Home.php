@@ -144,7 +144,31 @@ class Home extends CI_Controller
   public function log_transaksi()
   {
     // menyimpan setiap log transaksi yang terjadi pada hari tertentu
-    $this->load->view('home/rekap/log_transaksi');
+
+    $this->form_validation->set_rules('tanggal', 'Tanggal', 'required', [
+      'required' => 'Tanggal harus dipilih ketika ingin melihat filter'
+    ]);
+
+    if ($this->form_validation->run() == FALSE) {
+      $hari_ini = date('Y-m-d', time());
+      $data['barang'] = $this->Barang_Model->logBarang($hari_ini);
+      $data['tanggal'] = strtotime($hari_ini);
+    } else {
+      $tanggal = date('Y-m-d', strtotime($this->input->post('tanggal')));
+      $data['barang'] = $this->Barang_Model->logBarang($tanggal);
+      $data['tanggal'] = strtotime($tanggal);
+    }
+
+    $this->load->view('templates/header');
+    $this->load->view('templates/topbar');
+    $this->load->view('templates/sidebar');
+    $this->load->view('home/rekap/log_transaksi', $data);
+    $this->load->view('templates/footer');
+  }
+
+  public function perbaharui_stok($kode)
+  {
+    // dapat menambah langsung stok barang yang sudah ada
   }
 
   public function stok_habis()

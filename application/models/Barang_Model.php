@@ -40,4 +40,9 @@ class Barang_Model extends CI_Model
     $this->db->update('barang');
     return $this->db->affected_rows();
   }
+
+  public function logBarang($tanggal)
+  {
+    return $this->db->get_where('transaksi', ['tanggal_transaksi' => $tanggal])->result_array();
+  }
 }
