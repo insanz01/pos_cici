@@ -7,6 +7,14 @@ class Barang_Model extends CI_Model
     return $this->db->get('barang')->result_array();
   }
 
+  public function tampilkanDataBarang($kode)
+  {
+    $this->db->select('kode_barang, nama_barang, satuan, harga');
+    $this->db->from('barang');
+    $this->db->where('kode_barang', $kode);
+    return $this->db->get()->row_array();
+  }
+
   public function tambahBarang($items)
   {
     return $this->db->insert('barang', $items);
@@ -20,6 +28,14 @@ class Barang_Model extends CI_Model
   public function tampilkanSatuBarang($kode)
   {
     return $this->db->get_where('barang', ['kode_barang' => $kode])->row_array();
+  }
+
+  public function simpanTransaksi($data)
+  {
+    foreach ($data as $dt) {
+      $this->db->insert('transaksi', $dt);
+    }
+    return $this->db->affected_rows();
   }
 
   public function ubahDataBarang($item)
@@ -43,6 +59,6 @@ class Barang_Model extends CI_Model
 
   public function logBarang($tanggal)
   {
-    return $this->db->get_where('transaksi', ['tanggal_transaksi' => $tanggal])->result_array();
+    return $this->db->get_where('transaksi', ['date(tanggal)' => $tanggal])->result_array();
   }
 }

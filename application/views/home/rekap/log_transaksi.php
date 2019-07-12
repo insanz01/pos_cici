@@ -32,22 +32,33 @@
             </form>
             <!-- /.box-header -->
             <div class="box-body table-responsive">
-              <table class="table table-hover">
+              <table id="pos" class="table table-hover">
                 <thead>
                   <tr>
                     <th>Kode Barang</th>
                     <th>Nama Barang</th>
-                    <th>Satuan</th>
                     <th>Qty</th>
                     <th>Harga</th>
-                    <th>Sub Total</th>
+                    <th>Subtotal</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <!-- lakukan perulangan disini -->
-                    <td <?php if (!$barang) ?> colspan="6" class="text-center">Tidak ada catatan data transaksi.</td>
-                  </tr>
+                  <?php if (!$barang) : ?>
+                    <tr>
+                      <!-- lakukan perulangan disini -->
+                      <td colspan="6" class="text-center">Tidak ada catatan data transaksi.</td>
+                    </tr>
+                  <?php else : ?>
+                    <?php foreach ($barang as $b) : ?>
+                      <tr>
+                        <td><?= $b['id']; ?></td>
+                        <td><?= $b['name']; ?></td>
+                        <td><?= $b['qty']; ?></td>
+                        <td><?= $b['price']; ?></td>
+                        <td><?= $b['subtotal']; ?></td>
+                      </tr>
+                    <?php endforeach; ?>
+                  <?php endif; ?>
                 </tbody>
               </table>
             </div>

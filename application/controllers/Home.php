@@ -7,6 +7,8 @@ class Home extends CI_Controller
     parent::__construct();
 
     $this->load->model('Barang_Model');
+
+    $this->load->library('cart');
   }
 
   public function index()
@@ -15,12 +17,53 @@ class Home extends CI_Controller
     // dapat memasukan kode barang kemudian ditambahkan ke dalam list tabel
     // dapat melakukan transaksi pembayaran, yang nantinya akan masuk ke dalam rekap transaksi
     $data['total_harga'] = "Fitur belum bisa digunakan";
+    $data['transaksi'] = $this->cart->contents();
 
     $this->load->view('templates/header');
     $this->load->view('templates/topbar');
     $this->load->view('templates/sidebar');
     $this->load->view('home/pos', $data);
     $this->load->view('templates/footer');
+  }
+
+  public function tambah_transaksi()
+  {
+    $id = $this->input->post('kode');
+    $barang = $this->Barang_Model->tampilkanDataBarang($id);
+
+    $data = [
+      'id' => $barang['kode_barang'],
+      'qty' => 1,
+      'price' => $barang['harga'],
+      'name' => $barang['nama_barang']
+    ];
+    // var_dump($barang);
+    // die;
+    $this->cart->insert($data);
+
+    redirect('home');
+  }
+
+  public function hapus_transaksi($id)
+  {
+    $this->cart->remove($id);
+    redirect('home');
+  }
+
+  public function simpan_transaksi()
+  {
+    $barang = $this->cart->contents();
+    // var_dump($barang);
+    // die;
+
+    if ($this->Barang_Model->simpanTransaksi($barang) > 0) {
+      $this->session->set_flashdata('sukses', true);
+      $this->cart->destroy();
+    } else {
+      $this->session->set_flashdata('sukses', false);
+    }
+
+    redirect('home');
   }
 
   public function lihat_barang()
@@ -174,15 +217,30 @@ class Home extends CI_Controller
   public function stok_habis()
   {
     // dapat melihat semua stok yang habis
+    $this->load->view('templates/header');
+    $this->load->view('templates/topbar');
+    $this->load->view('templates/sidebar');
+    $this->load->view('home/labels/stok_habis');
+    $this->load->view('templates/footer');
   }
 
   public function stok_hampir_habis()
   {
-    // melihat semua limit stok paling tidak kurang atau sama dengan 20 unit barang
+    // melihat semua limit stok paling tidak kurang atau sama dengan 20 unit per barang
+    $this->load->view('templates/header');
+    $this->load->view('templates/topbar');
+    $this->load->view('templates/sidebar');
+    $this->load->view('home/labels/stok_limit');
+    $this->load->view('templates/footer');
   }
 
   public function best_seller()
   {
     // melihat barang yang paling laku (5 barang paling laris)
+    $this->load->view('templates/header');
+    $this->load->view('templates/topbar');
+    $this->load->view('templates/sidebar');
+    $this->load->view('home/labels/best_seller');
+    $this->load->view('templates/footer');
   }
 }

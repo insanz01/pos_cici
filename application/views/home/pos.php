@@ -22,36 +22,51 @@
             </div>
             <div class="row">
               <div class="col-lg-6">
-                <form style="padding-left: 1em;" action="<?= base_url('home/index') ?>" method="post">
-                  <input type="text" name="kode" id="kode" placeholder="Masukan kode barang" oninput="true">
+                <form style="padding-left: 1em;" name="transaksi" action="<?= base_url('home/tambah_transaksi') ?>" method="post">
+                  <input type="text" name="kode" id="kode" placeholder="Masukan kode barang">
                 </form>
               </div>
+              <script>
+                document.onkeypress = function keypressed(e) {
+                  var keyCode = (window.event) ? e.which : e.keyCode;
+                  if (keyCode == 13) {
+                    if (ValidateContactForm())
+                      document.transaksi.submit();
+                  }
+                }
+              </script>
               <div class="col-lg-6">
                 <button class="btn btn-primary" data-toggle="modal" data-target="#modal-default" style=" float: right; margin-right: 10px;">Pembayaran</button>
               </div>
             </div>
             <!-- /.box-header -->
             <div class="box-body table-responsive">
-              <table class="table table-hover">
+              <table id="pos" class="table table-hover">
                 <thead>
                   <tr>
                     <th>Kode Barang</th>
                     <th>Nama Barang</th>
-                    <th>Satuan</th>
                     <th>Qty</th>
                     <th>Harga</th>
                     <th>Sub Total</th>
+                    <th>Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td><input type="number" style="width: 50px" min="1"></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
+                  <?php foreach ($transaksi as $t) : ?>
+                    <tr>
+                      <td><?= $t['id'] ?></td>
+                      <td><?= $t['name'] ?></td>
+                      <td><?= $t['qty'] ?></td>
+                      <td><?= $t['price'] ?></td>
+                      <td><?= $t['subtotal'] ?></td>
+                      <td>
+                        <a href="<?= base_url('home/hapus_transaksi/') . $t['rowid'] ?>" class="badge bg-red">
+                          <i class="fa fa-trash"></i>
+                        </a>
+                      </td>
+                    </tr>
+                  <?php endforeach; ?>
                 </tbody>
               </table>
             </div>
@@ -85,16 +100,16 @@
           <span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title">Total Pembayaran</h4>
       </div>
-      <form action="#" method="post">
+      <form action="<?= base_url('home/simpan_transaksi'); ?>" method="post">
         <div class="modal-body">
-          <p>Total Harga yang harus dibayar : <b><?= $total_harga; ?></b></p>
+          <p>Total Harga yang harus dibayar : <b id="nominal"><?= $this->cart->total(); ?></b></p>
           <p>Nominal yang dibayar :
-            <input type="number" class="form-control" name="bayar" autofocus placeholder="Masukan Nominal uang yang dibayar">
+            <input type="number" class="form-control" name="bayar" autofocus placeholder="Masukan Nominal uang yang dibayar" id="bayar" onchange="insertCash()">
           </p>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="submit" id="tombol" class="btn btn-primary" disabled>Bayar sekarang</button>
         </div>
       </form>
     </div>
@@ -102,3 +117,17 @@
   </div>
   <!-- /.modal-dialog -->
 </div>
+
+<script>
+  let insertCash = function() {
+    let bayar = document.getElementById('bayar');
+    let nominal = document.getElementById('nominal');
+    let tombol = document.getElementById('tombol');
+
+    if (parseInt(bayar.value) >= parseInt(nominal.innerText)) {
+      tombol.removeAttribute('disabled');
+    } else {
+      tombol.setAttribute('disabled', true);
+    }
+  }
+</script>

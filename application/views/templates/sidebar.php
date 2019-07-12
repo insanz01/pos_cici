@@ -18,7 +18,7 @@
       <li class="header">APLIKASI UTAMA</li>
       <li>
         <a href="<?= base_url('home'); ?>">
-          <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+          <i class="fa fa-dashboard"></i> <span>Point of Sale</span>
         </a>
       </li>
       <li>
@@ -32,9 +32,9 @@
         </a>
       </li>
       <li class="header">LABELS</li>
-      <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Stok Habis</span></a></li>
-      <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Stok Hampir Habis</span></a></li>
-      <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Best Seller</span></a></li>
+      <li><a href="<?= base_url('home/stok_habis'); ?>"><i class="fa fa-circle-o text-red"></i> <span>Stok Habis</span></a></li>
+      <li><a href="<?= base_url('home/stok_hampir_habis'); ?>"><i class="fa fa-circle-o text-yellow"></i> <span>Stok Hampir Habis</span></a></li>
+      <li><a href="<?= base_url('home/best_seller'); ?>"><i class="fa fa-circle-o text-aqua"></i> <span>Best Seller</span></a></li>
     </ul>
   </section>
   <!-- /.sidebar -->
