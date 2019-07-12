@@ -33,6 +33,17 @@ class Barang_Model extends CI_Model
   public function simpanTransaksi($data)
   {
     foreach ($data as $dt) {
+      $this->db->select('stok');
+      $this->db->from('barang');
+      $this->db->where('kode_barang', $dt['id']);
+      $stok = $this->db->get()->row_array();
+
+      $stok['stok'] = (int)$stok['stok'] - (int)$dt['qty'];
+
+      $this->db->set('stok', $stok['stok']);
+      $this->db->where('kode_barang', $dt['id']);
+      $this->db->update('barang');
+
       $this->db->insert('transaksi', $dt);
     }
     return $this->db->affected_rows();

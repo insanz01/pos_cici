@@ -45,7 +45,6 @@
                 <tbody>
                   <?php if (!$barang) : ?>
                     <tr>
-                      <!-- lakukan perulangan disini -->
                       <td colspan="6" class="text-center">Tidak ada catatan data transaksi.</td>
                     </tr>
                   <?php else : ?>
