@@ -106,6 +106,7 @@
           <p>Nominal yang dibayar :
             <input type="number" class="form-control" name="bayar" autofocus placeholder="Masukan Nominal uang yang dibayar" id="bayar" onchange="insertCash()">
           </p>
+          <p id="kembalian"></p>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
@@ -122,11 +123,14 @@
   let insertCash = function() {
     let bayar = document.getElementById('bayar');
     let nominal = document.getElementById('nominal');
+    let kembalian = document.getElementById('kembalian');
     let tombol = document.getElementById('tombol');
 
     if (parseInt(bayar.value) >= parseInt(nominal.innerText)) {
+      kembalian.innerText = "Kembalian Rp. " + parseInt(bayar.value) - parseInt(nominal.innerText);
       tombol.removeAttribute('disabled');
     } else {
+      kembalian.innerText = "Kurang Rp. " + parseInt(nominal.innerText) - parseInt(bayar.value);
       tombol.setAttribute('disabled', true);
     }
   }
