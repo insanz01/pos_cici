@@ -9,6 +9,8 @@ class Home extends CI_Controller
     $this->load->model('Barang_Model');
 
     $this->load->library('cart');
+
+    date_default_timezone_get('Asia/Bangkok');
   }
 
   public function index()
